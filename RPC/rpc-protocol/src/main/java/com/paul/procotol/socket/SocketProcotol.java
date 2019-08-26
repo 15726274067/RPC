@@ -14,6 +14,6 @@ public class SocketProcotol implements Procotol {
     @Override
     public Object send(URL url, RpcRequest invocation) {
         SocketClient socketClient = SocketClient.getInstance();
-        return socketClient.sendRequest(url.getHost(),url.getPort(),invocation);
+        return socketClient.sendRequest(url.getHost(), url.getPort(), invocation);
     }
 }

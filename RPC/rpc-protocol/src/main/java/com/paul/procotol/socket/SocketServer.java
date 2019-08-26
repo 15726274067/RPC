@@ -21,14 +21,14 @@ public class SocketServer {
 
     /**
      * 发布服务,bio 模型
-     * @param service
      * @param port
      */
     public void publiser(int port){
         try (ServerSocket serverSocket  = new ServerSocket(port);)
         {
             while (true){
-                Socket socket = serverSocket.accept();//接收请求
+                //接收请求
+                Socket socket = serverSocket.accept();
                 executorService.execute(new SocketHandler(socket));
             }
         } catch (IOException e) {

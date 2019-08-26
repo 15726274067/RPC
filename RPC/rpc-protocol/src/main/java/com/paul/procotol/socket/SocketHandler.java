@@ -27,15 +27,14 @@ public class SocketHandler implements Runnable{
         try (ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
              ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());)
         {
-            Object o = inputStream.readObject(); //readObject 是 java 反序列化的过程
+            //readObject 是 java 反序列化的过程
+            Object o = inputStream.readObject();
             System.out.println(o);
             Object result = invoke((RpcRequest) o);
             //写回结果
             outputStream.writeObject(result);
             outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -50,15 +49,7 @@ public class SocketHandler implements Runnable{
             Method method = impClass.getMethod(invocation.getMethodName(),invocation.getParamTypes());
             String result = (String)method.invoke(impClass.newInstance(),invocation.getParams());
             return result;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 

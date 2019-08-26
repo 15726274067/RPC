@@ -33,7 +33,7 @@ public class SocketClient {
         Socket socket = newSocket(host,port);
         try (
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());)
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream()))
         {
             outputStream.writeObject(rpcRequest);
             outputStream.flush();
